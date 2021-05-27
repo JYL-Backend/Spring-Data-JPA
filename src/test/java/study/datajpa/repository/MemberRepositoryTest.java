@@ -70,7 +70,7 @@ class MemberRepositoryTest {
 
         //when
         Page<Member> page = memberRepository.findByAge(age,pageRequest);
-        Page<MemberDto> memberDtos = page.map(member -> new MemberDto(member.getId(), member.getUsername(), member.getTeam().getName()));
+//        Page<MemberDto> memberDtos = page.map(member -> new MemberDto(member.getId(), member.getUsername(), member.getTeam().getName()));
         List<Member> content = page.getContent();
 
 
@@ -81,5 +81,22 @@ class MemberRepositoryTest {
         assertThat(page.getTotalPages()).isEqualTo(2);
         assertThat(page.isFirst()).isEqualTo(true);
         assertThat(page.hasNext()).isEqualTo(true);
+    }
+
+
+    @Test
+    public void bulkUpdate() throws Exception {
+        //given
+        memberRepository.save(new Member("member1", 10));
+        memberRepository.save(new Member("member2", 20));
+        memberRepository.save(new Member("member3", 30));
+        memberRepository.save(new Member("member4", 40));
+        memberRepository.save(new Member("member5", 50));
+
+        //when
+        int resultCount = memberRepository.bulkAgePlus(20);
+
+        //then
+        assertThat(resultCount).isEqualTo(4);
     }
 }
