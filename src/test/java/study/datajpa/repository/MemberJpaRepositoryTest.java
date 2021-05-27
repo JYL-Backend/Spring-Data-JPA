@@ -70,6 +70,6 @@ class MemberJpaRepositoryTest {
 
         //then
         assertThat(count).isEqualTo(5);
-        assertThat(members.size()).isEqualTo(30);
+        assertThat(members.size()).isEqualTo(3);
     }
 }
